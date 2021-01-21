@@ -5,7 +5,7 @@ export default function car({ alt, img }) {
   const id = alt.replace(' car', '');
   return (
     <contextLeftCars.Consumer>
-      { ({ switchCar, cars }) =>
+      { ({ setCars, cars }) =>
           (
             <div>
               <img
@@ -14,7 +14,7 @@ export default function car({ alt, img }) {
                 alt={alt}
               />
               <button
-                onClick={switchCar}
+                onClick={() => { setCars(Object.assign({}, cars, { [id]: !cars[id] } )) } }
                 id={id}
                 type="button"
               >
