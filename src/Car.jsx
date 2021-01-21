@@ -1,28 +1,25 @@
-import React from 'react';
-import contextLeftCars from './contextLeftCar';
+import React, { useContext } from 'react';
+import { CarsContext } from './context';
 
-export default function car({ alt, img }) {
+function Car({ alt, img }) {
+  const { setCars, cars } = useContext(CarsContext);
   const id = alt.replace(' car', '');
   return (
-    <contextLeftCars.Consumer>
-      { ({ setCars, cars }) =>
-          (
-            <div>
-              <img
-                className={cars[id] ? 'car-right' : 'car-left'}
-                src={img}
-                alt={alt}
-              />
-              <button
-                onClick={() => { setCars(Object.assign({}, cars, { [id]: !cars[id] } )) } }
-                id={id}
-                type="button"
-              >
-                Move
-              </button>
-            </div>
-          )
-      }
-    </contextLeftCars.Consumer>
+    <div>
+      <img
+        className={cars[id] ? 'car-right' : 'car-left'}
+        src={img}
+        alt={alt}
+      />
+      <button
+        onClick={ () => setCars({ ...cars, [id]: !cars[id] }) }
+        id={id}
+        type="button"
+      >
+        Move
+      </button>
+    </div>
   );
 }
+
+export default Car
